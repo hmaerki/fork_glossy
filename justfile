@@ -9,11 +9,10 @@ TYPST := env_var_or_default("TYPST", "typst")
 TYPSTYLE := env_var_or_default("TYPSTYLE", "typstyle")
 
 # Paths
-THUMB_SRC := "tests/demo/test.typ"
 THUMB_OUT := "thumbnail.png"
 THEME_SRC := "tests/theme-gallery/test.typ"
 THEME_OUT := "themeshots.png"
-DEMO_SRC := "tests/demo/test.typ"
+DEMO_IMG := "tests/demo/out/1.png"
 DEMO_OUT := "build/demo.pdf"
 
 # Aliases
@@ -23,7 +22,8 @@ alias t := test
 alias w := watch
 
 # Default entrypoint
-[default]
+default: help
+
 help:
   @just --list --unsorted
 
@@ -69,14 +69,17 @@ watch *args:
 
 # ---------------------------- Artifacts ----------------------------
 
-# Build demo.typ -> demo.pdf
+# Build demo.pdf from the demo test output
 [group('artifacts')]
 demo:
+  {{TT}} run demo
   mkdir -p "$(dirname {{DEMO_OUT}})"
-  {{TYPST}} compile --root . {{DEMO_SRC}} {{DEMO_OUT}}
+  tmp="build/.demo-wrapper.typ"
+  printf '#set page(margin: 0pt)\n#image("../{{DEMO_IMG}}", width: 100%%)\n' > "$tmp"
+  {{TYPST}} compile --root . "$tmp" {{DEMO_OUT}}
+  rm -f "$tmp"
   @echo "Wrote {{DEMO_OUT}}"
 
-# Build all preview images
 # Build all preview images
 [group('artifacts')]
 images:
