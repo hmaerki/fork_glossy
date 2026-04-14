@@ -778,7 +778,9 @@
       let sorted_entries = if sort {
         current_entries
           // 1. create array of tuples with (lower [if ignore-case], entry)
-          .map(e => { if ignore-case { (lower(e.short), e) } else { (e.short, e) } })
+          .map(e => {
+            if ignore-case { (lower(e.short), e) } else { (e.short, e) }
+          })
           // 2. sort the tuples (by first element then second)
           .sorted(key: it => it.first()) // NOTE: sorted() is NOT language-aware
           // 3. strip away the tuple's first element, leaving an array of entries

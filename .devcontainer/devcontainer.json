@@ -5,6 +5,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "bierner.markdown-mermaid",
         "myriad-dreamin.tinymist",
         "nvarner.typst-lsp"
       ]

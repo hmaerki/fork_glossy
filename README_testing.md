@@ -36,8 +36,6 @@ $ typst --version
 typst <installed version>
 $ tt --version
 tytanic <installed version>
-$ ./bin/autotest.sh
-
 $ tt list
 $ tt run --no-fail-fast
 ```

@@ -3,14 +3,12 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
       - "**"
+  pull_request:
   workflow_dispatch:
 
 jobs:
-  test:
+  tytanic_typstyle:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,8 +26,13 @@ jobs:
         with:
           tool: tytanic
 
-      # 3. Run the tests
-      # Tests are currently known to fail; keep reporting results without blocking merges.
+      # 3. Check formatting with typstyle (fail fast before running tests)
+      - name: Check Typstyle Formatting
+        uses: typstyle-rs/typstyle-action@v0.9.3
+        with:
+          opts: --check
+          inputs: .
+
+      # 4. Run the tests
       - name: Run Tests
-        continue-on-error: true
         run: tt run --no-fail-fast

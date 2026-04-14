@@ -4,6 +4,7 @@ set -euo pipefail
 TYPST_VERSION="0.14.2"
 TYTANIC_VERSION="0.3.3"
 WATCHEXEC_VERSION="2.5.1"
+TYPSTYLE_VERSION="0.14.4"
 
 ARCH="$(uname -m)"
 case "$ARCH" in
@@ -25,12 +26,16 @@ sudo install -m 0755 "$tmp_tt" /usr/local/bin/tt
 sudo ln -sf /usr/local/bin/tt /usr/local/bin/tytanic
 rm -f "$tmp_tt"
 
-watchexec_url="https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-${T}.tar.xz"
+# typstyle: aarch64 releases use gnu, not musl
+case "$ARCH" in
+  x86_64)  TS="x86_64-unknown-linux-musl" ;;
+  aarch64) TS="aarch64-unknown-linux-gnu" ;;
+esac
 
-tmp_watchexec="$(mktemp)"
-curl -fsSL "$watchexec_url" \
-  | tar -xJOf - --wildcards "*/watchexec" > "$tmp_watchexec"
-sudo install -m 0755 "$tmp_watchexec" /usr/local/bin/watchexec
-rm -f "$tmp_watchexec"
+tmp_typstyle="$(mktemp)"
+curl -fsSL "https://github.com/typstyle-rs/typstyle/releases/download/v${TYPSTYLE_VERSION}/typstyle-${TS}" \
+  -o "$tmp_typstyle"
+sudo install -m 0755 "$tmp_typstyle" /usr/local/bin/typstyle
+rm -f "$tmp_typstyle"
 
 echo "*** Container build successfully ***"

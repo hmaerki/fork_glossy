@@ -399,13 +399,21 @@ glossary entry will not work.
 
 ## Development and testing
 
-See: [tests/README_testing.md](tests/README_testing.md)
+See: [README_testing.md](README_testing.md)
+
+See: [README_publish.md](README_publish.md)
 
 ## License
 
 This project is licensed under the MIT License.
 
 ## Changelog
+
+### v0.9.1
+
+- **Fix**, @swouf, [#17](https://github.com/swaits-typst-packages/glossy/pull/17), fixes [#16](https://github.com/swaits-typst-packages/glossy/issues/16)
+
+- **Fix**, @hmaerki, [#20](https://github.com/swaits-typst-packages/glossy/pull/20)
 
 ### v0.9.0
 - **Breaking**: In themes, entry.pages now returns an array of linked
