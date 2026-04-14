@@ -6,6 +6,7 @@
     "vscode": {
       "extensions": [
         "bierner.markdown-mermaid",
+        "mhutchie.git-graph",
         "myriad-dreamin.tinymist",
         "nvarner.typst-lsp"
       ]

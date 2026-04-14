@@ -3,8 +3,9 @@ set -euo pipefail
 
 TYPST_VERSION="0.14.2"
 TYTANIC_VERSION="0.3.3"
-WATCHEXEC_VERSION="2.5.1"
 TYPSTYLE_VERSION="0.14.4"
+JUST_VERSION="1.40.0"
+WATCHEXEC_VERSION="2.5.1"
 
 ARCH="$(uname -m)"
 case "$ARCH" in
@@ -37,5 +38,22 @@ curl -fsSL "https://github.com/typstyle-rs/typstyle/releases/download/v${TYPSTYL
   -o "$tmp_typstyle"
 sudo install -m 0755 "$tmp_typstyle" /usr/local/bin/typstyle
 rm -f "$tmp_typstyle"
+
+tmp_just="$(mktemp)"
+curl -fsSL "https://github.com/casey/just/releases/download/${JUST_VERSION}/just-${JUST_VERSION}-${T}.tar.gz" \
+  | tar -xOz just > "$tmp_just"
+sudo install -m 0755 "$tmp_just" /usr/local/bin/just
+rm -f "$tmp_just"
+
+watchexec_url="https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-${T}.tar.xz"
+tmp_watchexec="$(mktemp)"
+curl -fsSL "$watchexec_url" \
+  | tar -xJOf - --wildcards "*/watchexec" > "$tmp_watchexec"
+sudo install -m 0755 "$tmp_watchexec" /usr/local/bin/watchexec
+rm -f "$tmp_watchexec"
+
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends ripgrep python3
+sudo rm -rf /var/lib/apt/lists/*
 
 echo "*** Container build successfully ***"
