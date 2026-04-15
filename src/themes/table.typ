@@ -27,7 +27,12 @@
   },
   entry: (entry, index, total) => {
     if entry.reference == none {
-      (entry.short + entry.label, entry.long, entry.description, entry.pages)
+      (
+        entry.short + entry.label,
+        entry.long,
+        entry.description,
+        entry.pages.join(", "),
+      )
     } else {
       if entry.reference.supplement == none {
         (
