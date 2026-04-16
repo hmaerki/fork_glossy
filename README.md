@@ -420,9 +420,8 @@ This project is licensed under the MIT License.
 ## Changelog
 
 ### v0.9.1
-
+- **Feat**, @philxws692, [#15](Add reference functionality for glossary entries)
 - **Fix**, @swouf, [#17](https://github.com/swaits-typst-packages/glossy/pull/17), fixes [#16](https://github.com/swaits-typst-packages/glossy/issues/16)
-
 - **Fix**, @hmaerki, [#20](https://github.com/swaits-typst-packages/glossy/pull/20)
 
 ### v0.9.0
